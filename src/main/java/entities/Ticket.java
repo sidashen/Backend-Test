@@ -11,31 +11,12 @@ public class Ticket {
     this.carparkId = carparkId;
   }
 
-  public Ticket() {
-  }
-
   public int getSpotId() {
     return spotId;
   }
 
-  public void setSpotId(int spotId) {
-    this.spotId = spotId;
-  }
-
-  public String getCarNumber() {
-    return carNumber;
-  }
-
-  public void setCarNumber(String carInfo) {
-    this.carNumber = carInfo;
-  }
-
   public String getCarparkId() {
     return carparkId;
-  }
-
-  public void setCarparkId(String carparkId) {
-    this.carparkId = carparkId;
   }
 
   @Override

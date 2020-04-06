@@ -1,11 +1,9 @@
 package entities;
 
 import exception.InvalidInitInfoException;
-import exception.InvalidTicketException;
 import exception.ParkingLotFullException;
 import preparedstatement.crud.PreparedStatementUpdate;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -17,21 +15,10 @@ public class Manager {
     this.carparkList = carparkList;
   }
 
-  public Manager() {
-  }
-
-  public List<Carpark> getCarparkList() {
-    return carparkList;
-  }
-
-  public void setCarparkList(List<Carpark> carparkList) {
-    this.carparkList = carparkList;
-  }
-
   public List<Carpark> parseInitialInput(String initInfo) {
     List<String> initialInfo = Arrays.asList(initInfo.split(","));
     for (String info : initialInfo) {
-      String id = info.substring(0 ,1);
+      String id = info.substring(0, 1);
       int space = Integer.parseInt(info.substring(2));
       checkInitInfo(id, space);
       Carpark carpark = new Carpark(id, space);

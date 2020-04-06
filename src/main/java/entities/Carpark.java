@@ -1,11 +1,8 @@
 package entities;
 
-import exception.InvalidTicketException;
 import preparedstatement.crud.PreparedStatementQuery;
 import preparedstatement.crud.PreparedStatementUpdate;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Carpark {
@@ -17,23 +14,12 @@ public class Carpark {
     this.space = space;
   }
 
-  public Carpark() {
-  }
-
   public String getId() {
     return id;
   }
 
-  public void setId(String id) {
-    this.id = id;
-  }
-
   public int getSpace() {
     return space;
-  }
-
-  public void setSpace(int space) {
-    this.space = space;
   }
 
   public void park(String carNumber) {
@@ -47,7 +33,6 @@ public class Carpark {
   }
 
   public Ticket getParkInfo(String carNumber) {
-    Ticket ticket = null;
     String sql = "";
     if (this.id.equals("B")) {
       sql = "SELECT carpark_id carparkId, spot_id spotId, car_number carNumber FROM ticket_B WHERE car_number = ?";
@@ -57,17 +42,14 @@ public class Carpark {
     List<Ticket> list = PreparedStatementQuery.queryInfoList(Ticket.class, sql, carNumber);
     int spotId = list.get(0).getSpotId();
     String carparkId = list.get(0).getCarparkId();
-    ticket = new Ticket(spotId, carNumber, carparkId);
+    Ticket ticket = new Ticket(spotId, carNumber, carparkId);
     this.space -= 1;
     update();
     return ticket;
   }
 
   public Boolean isAvailable() {
-    if (this.space > 0) {
-      return true;
-    }
-    return false;
+    return this.space > 0;
   }
 
   public void update() {

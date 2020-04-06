@@ -7,14 +7,8 @@ public class Car {
     this.carNumber = carNumber;
   }
 
-  public Car() {
-  }
-
   public String getCarNumber() {
     return carNumber;
   }
 
-  public void setCarNumber(String carNumber) {
-    this.carNumber = carNumber;
-  }
 }
