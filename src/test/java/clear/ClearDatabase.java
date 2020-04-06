@@ -1,27 +1,14 @@
 package clear;
 
-import utils.JDBCUtils;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import preparedstatement.crud.PreparedStatementUpdate;
 
 public class ClearDatabase {
   public static void clearAll() {
-    Connection connection = null;
-    PreparedStatement preparedStatement = null;
-    try {
-      connection = JDBCUtils.getConnection();
-      String sqlCarpark = "TRUNCATE TABLE carpark;";
-      String sqlCar = "TRUNCATE TABLE car;";
-      preparedStatement = connection.prepareStatement(sqlCarpark);
-      preparedStatement.executeLargeUpdate();
-      preparedStatement = connection.prepareStatement(sqlCar);
-      preparedStatement.executeUpdate();
-    } catch (SQLException e) {
-      e.printStackTrace();
-    } finally {
-      JDBCUtils.close(preparedStatement, connection);
-    }
+    String sqlCarpark = "TRUNCATE TABLE carpark";
+    String sqlCar = "TRUNCATE TABLE ticket_A";
+    String sqlCar2 = "TRUNCATE TABLE ticket_B";
+    PreparedStatementUpdate.update(sqlCarpark);
+    PreparedStatementUpdate.update(sqlCar);
+    PreparedStatementUpdate.update(sqlCar2);
   }
 }
