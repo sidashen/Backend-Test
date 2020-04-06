@@ -1,8 +1,11 @@
 package entities;
 
+import exception.InvalidTicketException;
 import preparedstatement.crud.PreparedStatementQuery;
 import preparedstatement.crud.PreparedStatementUpdate;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Carpark {

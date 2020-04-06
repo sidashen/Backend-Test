@@ -11,6 +11,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
+import static entities.Manager.storeDatabase;
+
 public class Application {
 
   public static void main(String[] args) {
@@ -51,28 +53,10 @@ public class Application {
   }
 
   public static void init(String initInfo) {
-    //TODO
-    List<Carpark> carparks = parseInitialInput(initInfo);
-    storeDatabase(carparks);
-  }
-
-  private static List<Carpark> parseInitialInput(String initInfo) {
-    List<String> initialInfo = Arrays.asList(initInfo.split(","));
     List<Carpark> carparks = new ArrayList<>();
-    for (String info : initialInfo) {
-      String id = info.substring(0 ,1);
-      int space = Integer.parseInt(info.substring(2));
-      Carpark carpark = new Carpark(id, space);
-      carparks.add(carpark);
-    }
-    return carparks;
-  }
-
-  private static void storeDatabase(List<Carpark> carparks) {
-    String sql = "INSERT INTO carpark VALUES (?, ?)";
-    for (Carpark carpark : carparks) {
-      PreparedStatementUpdate.update(sql, carpark.getId(), carpark.getSpace());
-    }
+    Manager manager = new Manager(carparks);
+    carparks = manager.parseInitialInput(initInfo);
+    storeDatabase(carparks);
   }
 
   public static String park(String carNumber) {

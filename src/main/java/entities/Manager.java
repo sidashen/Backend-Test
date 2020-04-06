@@ -1,7 +1,11 @@
 package entities;
 
+import exception.InvalidTicketException;
 import exception.ParkingLotFullException;
+import preparedstatement.crud.PreparedStatementUpdate;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,12 +16,42 @@ public class Manager {
     this.carparkList = carparkList;
   }
 
+  public Manager() {
+  }
+
   public List<Carpark> getCarparkList() {
     return carparkList;
   }
 
   public void setCarparkList(List<Carpark> carparkList) {
     this.carparkList = carparkList;
+  }
+
+  public List<Carpark> parseInitialInput(String initInfo) {
+    List<String> initialInfo = Arrays.asList(initInfo.split(","));
+    for (String info : initialInfo) {
+      String id = info.substring(0 ,1);
+      int space = Integer.parseInt(info.substring(2));
+      checkInitInfo(id, space);
+      Carpark carpark = new Carpark(id, space);
+      this.carparkList.add(carpark);
+    }
+    return this.carparkList;
+  }
+
+  public static void checkInitInfo(String id, int space) {
+    if (id.equals("A") & space > 8) {
+      throw new InvalidTicketException("停车场初始数据有误，请重新输入");
+    } else if (id.equals("B") & space > 10) {
+      throw new InvalidTicketException("停车场初始数据有误，请重新输入");
+    }
+  }
+
+  public static void storeDatabase(List<Carpark> carparks) {
+    String sql = "INSERT INTO carpark VALUES (?, ?)";
+    for (Carpark carpark : carparks) {
+      PreparedStatementUpdate.update(sql, carpark.getId(), carpark.getSpace());
+    }
   }
 
   public Ticket managePark(String carNumber) {
