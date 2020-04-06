@@ -1,11 +1,18 @@
+import clear.ClearDatabase;
 import exception.InvalidTicketException;
 import exception.ParkingLotFullException;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class ApplicationTest {
+
+  @BeforeEach
+  void setUp() {
+    ClearDatabase.clearAll();
+  }
 
   @Test
   void should_return_ticket_information_when_park_given_init_and_car_and_general_boy() {
