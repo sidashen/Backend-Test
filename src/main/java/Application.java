@@ -1,3 +1,4 @@
+import entities.Car;
 import entities.Carpark;
 import entities.Manager;
 import entities.Ticket;
@@ -67,7 +68,15 @@ public class Application {
   }
 
   public static String fetch(String ticket) {
-    return "";
+    String sql = "SELECT car_number carNumber FROM ticket_A WHERE spot_id = ?";
+    List<String> ticketInfo = Arrays.asList(ticket.split(","));
+    int spotId = Integer.parseInt(ticketInfo.get(1));
+    List<Car> list = PreparedStatementQuery.queryInfoList(Car.class, sql, spotId);
+    if (list == null) {
+      sql = "SELECT car_number carNumber FROM ticket_B WHERE spot_id = ?";
+      list = PreparedStatementQuery.queryInfoList(Car.class, sql, spotId);
+    }
+    return list.get(0).getCarNumber();
   }
 
 }
