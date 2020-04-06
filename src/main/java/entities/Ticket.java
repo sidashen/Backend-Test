@@ -11,6 +11,9 @@ public class Ticket {
     this.carparkId = carparkId;
   }
 
+  public Ticket() {
+  }
+
   public int getSpotId() {
     return spotId;
   }

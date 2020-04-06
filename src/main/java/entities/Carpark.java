@@ -14,6 +14,9 @@ public class Carpark {
     this.space = space;
   }
 
+  public Carpark() {
+  }
+
   public String getId() {
     return id;
   }
