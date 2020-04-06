@@ -6,6 +6,7 @@ import exception.InvalidTicketException;
 import preparedstatement.crud.PreparedStatementQuery;
 import preparedstatement.crud.PreparedStatementUpdate;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
@@ -50,14 +51,28 @@ public class Application {
   }
 
   public static void init(String initInfo) {
+    //TODO
+    List<Carpark> carparks = parseInitialInput(initInfo);
+    storeDatabase(carparks);
+  }
+
+  private static List<Carpark> parseInitialInput(String initInfo) {
     List<String> initialInfo = Arrays.asList(initInfo.split(","));
-    String firstCarpark = initialInfo.get(0).substring(0, 1);
-    String firstCarparkSpace = initialInfo.get(0).substring(2);
-    String secondCarpark = initialInfo.get(1).substring(0, 1);
-    String secondCarparkSpace = initialInfo.get(1).substring(2);
+    List<Carpark> carparks = new ArrayList<>();
+    for (String info : initialInfo) {
+      String id = info.substring(0 ,1);
+      int space = Integer.parseInt(info.substring(2));
+      Carpark carpark = new Carpark(id, space);
+      carparks.add(carpark);
+    }
+    return carparks;
+  }
+
+  private static void storeDatabase(List<Carpark> carparks) {
     String sql = "INSERT INTO carpark VALUES (?, ?)";
-    PreparedStatementUpdate.update(sql, firstCarpark, firstCarparkSpace);
-    PreparedStatementUpdate.update(sql, secondCarpark, secondCarparkSpace);
+    for (Carpark carpark : carparks) {
+      PreparedStatementUpdate.update(sql, carpark.getId(), carpark.getSpace());
+    }
   }
 
   public static String park(String carNumber) {
@@ -69,6 +84,7 @@ public class Application {
   }
 
   public static String fetch(String ticket) {
+    //TODO 判断ticket的编号
     String sql = "SELECT car_number carNumber FROM ticket_A WHERE spot_id = ?";
     List<String> ticketInfo = Arrays.asList(ticket.split(","));
     int spotId = Integer.parseInt(ticketInfo.get(1));
