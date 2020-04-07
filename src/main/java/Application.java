@@ -46,6 +46,8 @@ public class Application {
       String ticket = scanner.next();
       String car = fetch(ticket);
       System.out.format("已为您取到车牌号为%s的车辆，很高兴为您服务，祝您生活愉快!\n", car);
+    } else if (choice.equals("4")) {
+      System.out.println("系统已退出");
     }
   }
 
