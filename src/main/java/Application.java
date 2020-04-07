@@ -1,13 +1,9 @@
-import entities.Car;
 import entities.Carpark;
 import entities.Manager;
 import entities.Ticket;
-import exception.InvalidTicketException;
 import preparedstatement.crud.PreparedStatementQuery;
-import preparedstatement.crud.PreparedStatementUpdate;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
