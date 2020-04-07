@@ -46,7 +46,7 @@ public class Manager {
   }
 
   public Ticket managePark(String carNumber) {
-    Optional<Carpark> firstAvailableCarpark = carparkList.stream()
+    Optional<Carpark> firstAvailableCarpark = this.carparkList.stream()
       .filter(Carpark::isAvailable).findFirst();
     if (firstAvailableCarpark.isPresent()) {
       return firstAvailableCarpark.get().park(carNumber, firstAvailableCarpark.get().getSpotNumber());

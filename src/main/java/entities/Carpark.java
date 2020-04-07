@@ -35,10 +35,6 @@ public class Carpark {
     return spotNumber;
   }
 
-  public void setSpotNumber(String spotNumber) {
-    this.spotNumber = spotNumber;
-  }
-
   public void update() {
     String sql = "UPDATE carpark SET space = ? WHERE id = ?";
     PreparedStatementUpdate.update(sql, this.space, this.id);
@@ -93,7 +89,7 @@ public class Carpark {
 
   private String parseSpaceToSpotNumber() {
     List<String> spotNumberList = new ArrayList<>();
-    for (int i = 1; i < space + 1; i++) {
+    for (int i = 1; i < this.space + 1; i++) {
       spotNumberList.add(String.valueOf(i));
     }
     return ListToString(spotNumberList);
