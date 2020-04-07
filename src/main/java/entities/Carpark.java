@@ -45,12 +45,12 @@ public class Carpark {
   }
 
   public static Carpark findById(String id) {
-    String querySql = "SELECT space,  spotNumber FROM carpark WHERE id = ?";
+    String querySql = "SELECT space,  spot_Number spotNumber FROM carpark WHERE id = ?";
     return PreparedStatementQuery.queryInfo(Carpark.class, querySql, id);
   }
 
   public static List<Carpark> findAll() {
-    String sql = "SELECT * FROM carpark";
+    String sql = "SELECT id, space, spot_number spotNumber FROM carpark";
     return PreparedStatementQuery.queryInfoList(Carpark.class, sql);
   }
 
@@ -104,7 +104,7 @@ public class Carpark {
   }
 
   private void updateCarPark(String spotNumber) {
-    String updateCarParkSql = "UPDATE CARPARK SET spotNumber = ? where id = ?";
+    String updateCarParkSql = "UPDATE carpark SET spot_number = ? where id = ?";
     PreparedStatementUpdate.update(updateCarParkSql, spotNumber, this.id);
   }
 
