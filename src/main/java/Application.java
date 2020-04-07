@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import static entities.Manager.manageFetch;
 import static entities.Manager.storeDatabase;
 
 public class Application {
@@ -64,7 +65,10 @@ public class Application {
   }
 
   public static String fetch(String ticket) {
-    Manager manager = new Manager();
-    return manager.manageFetch(ticket);
+    Ticket currentTicket = Ticket.parseTicket(ticket);
+    manageFetch(currentTicket.getCarparkId(), currentTicket.getSpotNumber());
+    currentTicket.deleteTicketFromDb();
+    return currentTicket.getCarNumber();
   }
+
 }

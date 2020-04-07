@@ -1,5 +1,6 @@
 package entities;
 
+import preparedstatement.crud.PreparedStatementQuery;
 import preparedstatement.crud.PreparedStatementUpdate;
 
 import java.util.ArrayList;
@@ -55,6 +56,19 @@ public class Carpark {
   public void update() {
     String sql = "UPDATE carpark SET space = ? WHERE id = ?";
     PreparedStatementUpdate.update(sql, this.space, this.id);
+  }
+
+  public static Carpark findById(String id) {
+    String querySql = "SELECT space,  spotNumber FROM carpark WHERE id = ?";
+    return PreparedStatementQuery.queryInfo(Carpark.class, querySql, id);
+  }
+
+  public void updateSpotNumber(Integer spotNumber) {
+    List<String> spotNumberList = Arrays.stream(this.spotNumber.split(","))
+      .collect(Collectors.toList());
+    spotNumberList.add(String.valueOf(spotNumber));
+    this.spotNumber = spotNumberList.stream().map(Object::toString)
+      .collect(Collectors.joining(","));
   }
 
   private int findMinSpotNumber(String spotNumber) {

@@ -1,9 +1,7 @@
 package entities;
 
 import exception.InvalidInitInfoException;
-import exception.InvalidTicketException;
 import exception.ParkingLotFullException;
-import preparedstatement.crud.PreparedStatementQuery;
 import preparedstatement.crud.PreparedStatementUpdate;
 
 import java.util.Arrays;
@@ -56,29 +54,16 @@ public class Manager {
     throw new ParkingLotFullException("非常抱歉，由于车位已满，暂时无法为您停车！");
   }
 
-  public String manageFetch(String ticket) {
-    String sql = "SELECT car_number carNumber FROM ticket_A WHERE spot_id = ?";
-    List<String> ticketInfo = Arrays.asList(ticket.split(","));
-    int spotId = Integer.parseInt(ticketInfo.get(1));
-    List<Car> list = PreparedStatementQuery.queryInfoList(Car.class, sql, spotId);
-    assert list != null;
-    if (list.size() > 0) {
-      sql = "DELETE FROM ticket_A WHERE spot_id = ?";
-      PreparedStatementUpdate.update(sql, spotId);
-      System.out.println("已为您取到车牌号为" + list.get(0).getCarNumber() + "的车辆，很高兴为您服务，祝您生活愉快!");
-      return list.get(0).getCarNumber();
-    } else {
-      sql = "SELECT car_number carNumber FROM ticket_B WHERE spot_id = ?";
-      list = PreparedStatementQuery.queryInfoList(Car.class, sql, spotId);
-    }
-    assert list != null;
-    if (list.size() > 0) {
-      sql = "DELETE FROM ticket_B WHERE spot_id = ?";
-      PreparedStatementUpdate.update(sql, spotId);
-      System.out.println("已为您取到车牌号为" + list.get(0).getCarNumber() + "的车辆，很高兴为您服务，祝您生活愉快!");
-      return list.get(0).getCarNumber();
-    }
-    throw new InvalidTicketException("很抱歉，无法通过您提供的停车券为您找到相应的车辆，请您再次核对停车券是否有效！");
+  public static void manageFetch(String carParkId, Integer spotId) {
+    //update
+    updateCarPark(carParkId, spotId);
+  }
+
+  private static void updateCarPark(String carParkId, Integer spotId) {
+    //update carPark  1.query  2.update
+    Carpark carpark = Carpark.findById(carParkId);
+    carpark.updateSpotNumber(spotId);
+    carpark.update();
   }
 
 }
