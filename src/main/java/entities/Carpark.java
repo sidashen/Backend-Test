@@ -68,6 +68,8 @@ public class Carpark {
     this.updateCarPark(currentSpotNumber);
     Ticket ticket = new Ticket(minSpotNumber, carNumber, this.id);
     ticket.storeTicketToDb();
+    Car car = new Car(carNumber);
+    car.storeCarToDb();
     return ticket;
   }
 
@@ -81,14 +83,14 @@ public class Carpark {
       spotNumberList.add(Integer.parseInt(spotNumber));
     } else {
       spotNumberList = Arrays.stream(spotNumber.split(","))
-                       .map(Integer::parseInt).collect(Collectors.toList());
+        .map(Integer::parseInt).collect(Collectors.toList());
     }
     return Collections.min(spotNumberList);
   }
 
   private String removeMinSpotNumber(String spotNumber, Integer minSpot) {
     List<Integer> spotNumberList = Arrays.stream(spotNumber.split(","))
-                                  .map(Integer::parseInt).collect(Collectors.toList());
+      .map(Integer::parseInt).collect(Collectors.toList());
     spotNumberList.remove(minSpot);
     return spotNumberList.stream().map(Object::toString)
       .collect(Collectors.joining(","));

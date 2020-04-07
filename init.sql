@@ -15,3 +15,8 @@ CREATE TABLE ticket (
   carpark_id varchar(32) NOT NULL COMMENT '停车场编号',
   PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE car (
+	id int(11) NOT NULL AUTO_INCREMENT,
+    car_number varchar(32) DEFAULT NULL COMMENT '车牌号',
+    PRIMARY KEY (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

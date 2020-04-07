@@ -1,5 +1,7 @@
 package entities;
 
+import preparedstatement.crud.PreparedStatementUpdate;
+
 public class Car {
   private String carNumber;
 
@@ -14,4 +16,8 @@ public class Car {
     return carNumber;
   }
 
+  public void storeCarToDb() {
+    String insertSql = "INSERT INTO car (car_number) VALUES (?)";
+    PreparedStatementUpdate.update(insertSql, this.carNumber);
+  }
 }

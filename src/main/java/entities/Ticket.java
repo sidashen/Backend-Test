@@ -26,24 +26,12 @@ public class Ticket {
     return spotNumber;
   }
 
-  public void setSpotNumber(int spotNumber) {
-    this.spotNumber = spotNumber;
-  }
-
-  public int getSpotId() {
-    return spotNumber;
-  }
-
   public String getCarparkId() {
     return carparkId;
   }
 
   public String getCarNumber() {
     return carNumber;
-  }
-
-  public void setCarNumber(String carNumber) {
-    this.carNumber = carNumber;
   }
 
   public static Ticket parseTicket(String ticketString) {

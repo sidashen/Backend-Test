@@ -1,3 +1,4 @@
+import entities.Car;
 import entities.Carpark;
 import entities.Manager;
 import entities.Ticket;
@@ -67,7 +68,8 @@ public class Application {
     Ticket currentTicket = Ticket.parseTicket(ticket);
     manageFetch(currentTicket.getCarparkId(), currentTicket.getSpotNumber(), currentTicket);
     currentTicket.deleteTicketFromDb();
-    return currentTicket.getCarNumber();
+    Car car = new Car(currentTicket.getCarNumber());
+    return car.getCarNumber();
   }
 
 }
