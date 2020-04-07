@@ -66,7 +66,7 @@ public class Application {
 
   public static String fetch(String ticket) {
     Ticket currentTicket = Ticket.parseTicket(ticket);
-    manageFetch(currentTicket.getCarparkId(), currentTicket.getSpotNumber());
+    manageFetch(currentTicket.getCarparkId(), currentTicket.getSpotNumber(), currentTicket);
     currentTicket.deleteTicketFromDb();
     return currentTicket.getCarNumber();
   }

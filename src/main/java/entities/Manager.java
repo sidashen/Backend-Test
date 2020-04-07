@@ -1,11 +1,13 @@
 package entities;
 
 import exception.InvalidInitInfoException;
+import exception.InvalidTicketException;
 import exception.ParkingLotFullException;
 import preparedstatement.crud.PreparedStatementUpdate;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 public class Manager {
@@ -54,16 +56,20 @@ public class Manager {
     throw new ParkingLotFullException("非常抱歉，由于车位已满，暂时无法为您停车！");
   }
 
-  public static void manageFetch(String carParkId, Integer spotId) {
-    //update
+  public static void manageFetch(String carParkId, Integer spotId, Ticket ticket) {
+    checkTicket(ticket);
     updateCarPark(carParkId, spotId);
   }
 
   private static void updateCarPark(String carParkId, Integer spotId) {
-    //update carPark  1.query  2.update
     Carpark carpark = Carpark.findById(carParkId);
     carpark.updateSpotNumber(spotId);
     carpark.update();
   }
 
+  private static void checkTicket(Ticket ticket) {
+    if (Objects.isNull(ticket.findByCarNumber())) {
+      throw new InvalidTicketException("很抱歉，无法通过您提供的停车券为您找到相应的车辆，请您再次核对停车券是否有效！");
+    }
+  }
 }
