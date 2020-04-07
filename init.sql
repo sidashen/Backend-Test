@@ -1,10 +1,11 @@
 SHOW DATABASES;
 CREATE DATABASE carpark_info;
 USE carpark_info;
+DROP TABLE carpark;
 CREATE TABLE carpark (
   id varchar(32) NOT NULL COMMENT '停车场编号',
-  space int(11) DEFAULT NULL COMMENT '车位',
-  spotNumber varchar(32) DEFAULT NULL,
+  space int(11) DEFAULT NULL COMMENT '车位总数',
+  spot_number varchar(32) DEFAULT NULL COMMENT '车位列表信息',
   PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 CREATE TABLE ticket (

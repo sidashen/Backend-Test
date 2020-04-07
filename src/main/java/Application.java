@@ -1,7 +1,6 @@
 import entities.Carpark;
 import entities.Manager;
 import entities.Ticket;
-import preparedstatement.crud.PreparedStatementQuery;
 
 import java.util.ArrayList;
 import java.util.List;
