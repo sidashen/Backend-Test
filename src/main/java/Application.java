@@ -57,9 +57,7 @@ public class Application {
   }
 
   public static String park(String carNumber) {
-    String sql = "SELECT * FROM carpark";
-    List<Carpark> list = PreparedStatementQuery.queryInfoList(Carpark.class, sql);
-    Manager manager = new Manager(list);
+    Manager manager = new Manager(Carpark.findAll());
     Ticket ticket = manager.managePark(carNumber);
     return ticket.toString();
   }

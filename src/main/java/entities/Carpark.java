@@ -31,26 +31,12 @@ public class Carpark {
     return space;
   }
 
-
   public String getSpotNumber() {
     return spotNumber;
   }
 
   public void setSpotNumber(String spotNumber) {
     this.spotNumber = spotNumber;
-  }
-
-  public Ticket park(String carNumber, String spotNumber) {
-    int minSpotNumber = this.findMinSpotNumber(spotNumber);
-    String currentSpotNumber = this.removeMinSpotNumber(spotNumber, minSpotNumber);
-    this.updateCarPark(currentSpotNumber);
-    Ticket ticket = new Ticket(minSpotNumber, carNumber, this.id);
-    ticket.storeTicketToDb();
-    return ticket;
-  }
-
-  public Boolean isAvailable() {
-    return this.spotNumber.length() > 0;
   }
 
   public void update() {
@@ -63,12 +49,30 @@ public class Carpark {
     return PreparedStatementQuery.queryInfo(Carpark.class, querySql, id);
   }
 
+  public static List<Carpark> findAll() {
+    String sql = "SELECT * FROM carpark";
+    return PreparedStatementQuery.queryInfoList(Carpark.class, sql);
+  }
+
   public void updateSpotNumber(Integer spotNumber) {
     List<String> spotNumberList = Arrays.stream(this.spotNumber.split(","))
       .collect(Collectors.toList());
     spotNumberList.add(String.valueOf(spotNumber));
     this.spotNumber = spotNumberList.stream().map(Object::toString)
       .collect(Collectors.joining(","));
+  }
+
+  Ticket park(String carNumber, String spotNumber) {
+    int minSpotNumber = this.findMinSpotNumber(spotNumber);
+    String currentSpotNumber = this.removeMinSpotNumber(spotNumber, minSpotNumber);
+    this.updateCarPark(currentSpotNumber);
+    Ticket ticket = new Ticket(minSpotNumber, carNumber, this.id);
+    ticket.storeTicketToDb();
+    return ticket;
+  }
+
+  Boolean isAvailable() {
+    return this.spotNumber.length() > 0;
   }
 
   private int findMinSpotNumber(String spotNumber) {
