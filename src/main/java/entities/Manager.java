@@ -5,10 +5,7 @@ import exception.InvalidTicketException;
 import exception.ParkingLotFullException;
 import preparedstatement.crud.PreparedStatementUpdate;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 public class Manager {
   private List<Carpark> carparkList;
@@ -21,7 +18,7 @@ public class Manager {
   }
 
   public List<Carpark> parseInitialInput(String initInfo) {
-    List<String> initialInfo = Arrays.asList(initInfo.split(","));
+    String[] initialInfo = initInfo.split(",");
     for (String info : initialInfo) {
       String id = info.substring(0, 1);
       int space = Integer.parseInt(info.substring(2));
@@ -29,6 +26,7 @@ public class Manager {
       Carpark carpark = new Carpark(id, space);
       this.carparkList.add(carpark);
     }
+    this.carparkList.sort((Comparator<Carpark>) (o1, o2) -> o1.getId().compareTo(o2.getId()));
     return this.carparkList;
   }
 
