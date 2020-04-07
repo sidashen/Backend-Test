@@ -56,12 +56,12 @@ public class Manager {
     throw new ParkingLotFullException("非常抱歉，由于车位已满，暂时无法为您停车！");
   }
 
-  public static void manageFetch(String carParkId, Integer spotId, Ticket ticket) {
+  public static void manageFetch(String carParkId, String spotId, Ticket ticket) {
     checkTicket(ticket);
     updateCarPark(carParkId, spotId);
   }
 
-  private static void updateCarPark(String carParkId, Integer spotId) {
+  private static void updateCarPark(String carParkId, String spotId) {
     Carpark carpark = Carpark.findById(carParkId);
     carpark.updateSpotNumber(spotId);
     carpark.update();

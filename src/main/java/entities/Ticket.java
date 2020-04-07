@@ -4,16 +4,16 @@ import exception.InvalidTicketException;
 import preparedstatement.crud.PreparedStatementQuery;
 import preparedstatement.crud.PreparedStatementUpdate;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
+
+import static utils.StringListConverter.*;
 
 public class Ticket {
-  private int spotNumber;
+  private String spotNumber;
   private String carNumber;
   private String carparkId;
 
-  public Ticket(int spotNumber, String carNumber, String carparkId) {
+  public Ticket(String spotNumber, String carNumber, String carparkId) {
     this.spotNumber = spotNumber;
     this.carNumber = carNumber;
     this.carparkId = carparkId;
@@ -22,7 +22,7 @@ public class Ticket {
   public Ticket() {
   }
 
-  public int getSpotNumber() {
+  public String getSpotNumber() {
     return spotNumber;
   }
 
@@ -35,13 +35,12 @@ public class Ticket {
   }
 
   public static Ticket parseTicket(String ticketString) {
-    List<String> ticketFieldList = Arrays.stream(ticketString.split(","))
-      .collect(Collectors.toList());
+    List<String> ticketFieldList = StringToList(ticketString);
     int ticketFieldSize = 3;
     if (ticketFieldList.size() != ticketFieldSize) {
       throw new InvalidTicketException("invalid input ticket");
     }
-    return new Ticket(Integer.parseInt(ticketFieldList.get(1)), ticketFieldList.get(2), ticketFieldList.get(0));
+    return new Ticket(ticketFieldList.get(1), ticketFieldList.get(2), ticketFieldList.get(0));
   }
 
   public void deleteTicketFromDb() {

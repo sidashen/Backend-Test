@@ -4,10 +4,10 @@ import preparedstatement.crud.PreparedStatementQuery;
 import preparedstatement.crud.PreparedStatementUpdate;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
+
+import static utils.StringListConverter.*;
 
 public class Carpark {
   private String id;
@@ -54,16 +54,14 @@ public class Carpark {
     return PreparedStatementQuery.queryInfoList(Carpark.class, sql);
   }
 
-  public void updateSpotNumber(Integer spotNumber) {
-    List<String> spotNumberList = Arrays.stream(this.spotNumber.split(","))
-      .collect(Collectors.toList());
-    spotNumberList.add(String.valueOf(spotNumber));
-    this.spotNumber = spotNumberList.stream().map(Object::toString)
-      .collect(Collectors.joining(","));
+  public void updateSpotNumber(String spotNumber) {
+    List<String> spotNumberList = StringToList(spotNumber);
+    spotNumberList.add(spotNumber);
+    this.spotNumber = ListToString(spotNumberList);
   }
 
   Ticket park(String carNumber, String spotNumber) {
-    int minSpotNumber = this.findMinSpotNumber(spotNumber);
+    String minSpotNumber = this.findMinSpotNumber(spotNumber);
     String currentSpotNumber = this.removeMinSpotNumber(spotNumber, minSpotNumber);
     this.updateCarPark(currentSpotNumber);
     Ticket ticket = new Ticket(minSpotNumber, carNumber, this.id);
@@ -77,32 +75,28 @@ public class Carpark {
     return this.spotNumber.length() > 0;
   }
 
-  private int findMinSpotNumber(String spotNumber) {
-    List<Integer> spotNumberList = new ArrayList<>();
+  private String findMinSpotNumber(String spotNumber) {
+    List<String> spotNumberList = new ArrayList<>();
     if (spotNumber.length() == 1) {
-      spotNumberList.add(Integer.parseInt(spotNumber));
+      spotNumberList.add(spotNumber);
     } else {
-      spotNumberList = Arrays.stream(spotNumber.split(","))
-        .map(Integer::parseInt).collect(Collectors.toList());
+      spotNumberList = StringToList(spotNumber);
     }
     return Collections.min(spotNumberList);
   }
 
-  private String removeMinSpotNumber(String spotNumber, Integer minSpot) {
-    List<Integer> spotNumberList = Arrays.stream(spotNumber.split(","))
-      .map(Integer::parseInt).collect(Collectors.toList());
+  private String removeMinSpotNumber(String spotNumber, String minSpot) {
+    List<String> spotNumberList = StringToList(spotNumber);
     spotNumberList.remove(minSpot);
-    return spotNumberList.stream().map(Object::toString)
-      .collect(Collectors.joining(","));
+    return ListToString(spotNumberList);
   }
 
   private String parseSpaceToSpotNumber() {
-    List<Integer> spotNumberList = new ArrayList<>();
+    List<String> spotNumberList = new ArrayList<>();
     for (int i = 1; i < space + 1; i++) {
-      spotNumberList.add(i);
+      spotNumberList.add(String.valueOf(i));
     }
-    return spotNumberList.stream().map(Object::toString)
-      .collect(Collectors.joining(","));
+    return ListToString(spotNumberList);
   }
 
   private void updateCarPark(String spotNumber) {
