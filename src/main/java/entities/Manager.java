@@ -46,8 +46,7 @@ public class Manager {
     Optional<Carpark> firstAvailableCarpark = carparkList.stream()
       .filter(Carpark::isAvailable).findFirst();
     if (firstAvailableCarpark.isPresent()) {
-      firstAvailableCarpark.get().park(carNumber);
-      return firstAvailableCarpark.get().getParkInfo(carNumber);
+      return firstAvailableCarpark.get().park(carNumber);
     }
     throw new ParkingLotFullException("非常抱歉，由于车位已满，暂时无法为您停车！");
   }

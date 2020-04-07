@@ -25,7 +25,7 @@ public class Carpark {
     return space;
   }
 
-  public void park(String carNumber) {
+  public Ticket park(String carNumber) {
     String sql = "";
     if (this.id.equals("B")) {
       sql = "INSERT INTO ticket_B (car_number, carpark_id) VALUES (?, ?)";
@@ -33,9 +33,10 @@ public class Carpark {
       sql = "INSERT INTO ticket_A (car_number, carpark_id) VALUES (?, ?)";
     }
     PreparedStatementUpdate.update(sql, carNumber, this.id);
+    return getParkTicket(carNumber);
   }
 
-  public Ticket getParkInfo(String carNumber) {
+  public Ticket getParkTicket(String carNumber) {
     String sql = "";
     if (this.id.equals("B")) {
       sql = "SELECT carpark_id carparkId, spot_id spotId, car_number carNumber FROM ticket_B WHERE car_number = ?";
