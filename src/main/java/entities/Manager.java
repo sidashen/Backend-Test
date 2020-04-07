@@ -41,9 +41,9 @@ public class Manager {
   }
 
   public static void storeDatabase(List<Carpark> carparks) {
-    String sql = "INSERT INTO carpark VALUES (?, ?)";
+    String sql = "INSERT INTO carpark VALUES (?, ?, ?)";
     for (Carpark carpark : carparks) {
-      PreparedStatementUpdate.update(sql, carpark.getId(), carpark.getSpace());
+      PreparedStatementUpdate.update(sql, carpark.getId(), carpark.getSpace(), carpark.getSpotNumber());
     }
   }
 
@@ -51,7 +51,7 @@ public class Manager {
     Optional<Carpark> firstAvailableCarpark = carparkList.stream()
       .filter(Carpark::isAvailable).findFirst();
     if (firstAvailableCarpark.isPresent()) {
-      return firstAvailableCarpark.get().park(carNumber);
+      return firstAvailableCarpark.get().park(carNumber, firstAvailableCarpark.get().getSpotNumber());
     }
     throw new ParkingLotFullException("非常抱歉，由于车位已满，暂时无法为您停车！");
   }
