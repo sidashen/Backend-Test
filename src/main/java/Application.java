@@ -61,6 +61,11 @@ public class Application {
   public static String park(String carNumber) {
     Manager manager = new Manager(Carpark.findAll());
     Ticket ticket = manager.managePark(carNumber);
+    String message = "已将您的车牌号为" + ticket.getCarNumber()
+      + "的车辆停到" + ticket.getCarparkId() + "停车场"
+      + ticket.getSpotNumber() + "号车位, 停车券为："
+      + ticket.toString() + ", 请您妥善保存！";
+    System.out.println(message);
     return ticket.toString();
   }
 
@@ -69,6 +74,7 @@ public class Application {
     manageFetch(currentTicket.getCarparkId(), currentTicket.getSpotNumber(), currentTicket);
     currentTicket.deleteTicketFromDb();
     Car car = new Car(currentTicket.getCarNumber());
+    System.out.println("已为您取到车牌号为" + car.getCarNumber() + "的车辆，很高兴为您服务，祝您生活愉快！");
     return car.getCarNumber();
   }
 

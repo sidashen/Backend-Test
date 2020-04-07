@@ -61,10 +61,6 @@ public class Ticket {
 
   @Override
   public String toString() {
-    String message = "已将您的车牌号为" + this.carNumber
-      + "的车辆停到" + this.carparkId + "停车场" + this.spotNumber + "号车位, 停车券为："
-      + this.carparkId + "," + this.spotNumber + "," + this.carNumber + ", 请您妥善保存！";
-    System.out.println(message);
     return this.carparkId + "," + this.spotNumber + "," + this.carNumber;
   }
 }
