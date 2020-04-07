@@ -1,4 +1,4 @@
-package entities;
+package entity;
 
 import exception.InvalidInitInfoException;
 import exception.InvalidTicketException;
@@ -31,9 +31,7 @@ public class Manager {
   }
 
   public static void checkInitInfo(String id, int space) {
-    if (id.equals("A") & space > 8) {
-      throw new InvalidInitInfoException("停车场初始数据有误，请重新输入");
-    } else if (id.equals("B") & space > 10) {
+    if ((id.equals("A") & space > 8) || (id.equals("B") & space > 10)) {
       throw new InvalidInitInfoException("停车场初始数据有误，请重新输入");
     }
   }

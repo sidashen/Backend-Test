@@ -1,14 +1,14 @@
-import entities.Car;
-import entities.Carpark;
-import entities.Manager;
-import entities.Ticket;
+import entity.Car;
+import entity.Carpark;
+import entity.Manager;
+import entity.Ticket;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import static entities.Manager.manageFetch;
-import static entities.Manager.storeDatabase;
+import static entity.Manager.manageFetch;
+import static entity.Manager.storeDatabase;
 
 public class Application {
 

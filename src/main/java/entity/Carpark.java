@@ -1,4 +1,4 @@
-package entities;
+package entity;
 
 import preparedstatement.crud.PreparedStatementQuery;
 import preparedstatement.crud.PreparedStatementUpdate;
@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static utils.StringListConverter.*;
+import static util.StringListConverter.*;
 
 public class Carpark {
   private String id;

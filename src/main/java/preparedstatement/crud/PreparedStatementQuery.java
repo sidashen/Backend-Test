@@ -1,6 +1,6 @@
 package preparedstatement.crud;
 
-import utils.JDBCUtils;
+import util.JDBCUtils;
 
 import java.lang.reflect.Field;
 import java.sql.Connection;

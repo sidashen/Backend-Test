@@ -1,4 +1,4 @@
-package entities;
+package entity;
 
 import exception.InvalidTicketException;
 import preparedstatement.crud.PreparedStatementQuery;
@@ -6,7 +6,7 @@ import preparedstatement.crud.PreparedStatementUpdate;
 
 import java.util.List;
 
-import static utils.StringListConverter.*;
+import static util.StringListConverter.*;
 
 public class Ticket {
   private String spotNumber;
